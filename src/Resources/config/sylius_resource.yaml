@@ -1,0 +1,7 @@
+# @see https://stack.sylius.com/resource/index
+sylius_resource:
+    # Bounded Contexts managed in their own sylius_resource.yaml file
+    mapping:
+        paths:
+            - '%kernel.project_dir%/src/*/Infrastructure/Sylius/Resource'
+
