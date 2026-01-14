@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "alexandrebulete/ddd-symfony-bundle": "^1.0",
+        "alexandrebulete/ddd-symfony-bundle": "^1.1",
         "knplabs/knp-menu-bundle": "^3.0",
         "sylius/resource-bundle": "^1.11",
         "sylius/grid-bundle": "^1.13",
