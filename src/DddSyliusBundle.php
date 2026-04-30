@@ -17,7 +17,19 @@ class DddSyliusBundle extends AbstractBundle
 
     public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void
     {
-        $container->import('../src/Resources/config/sylius_resource.yaml');
+        /** @var string $projectDir */
+        $projectDir = $builder->getParameter('kernel.project_dir');
+        $paths = glob($projectDir . '/src/*/Infrastructure/Sylius/Resource', GLOB_ONLYDIR) ?: [];
+
+        if ([] === $paths) {
+            return;
+        }
+
+        $container->extension('sylius_resource', [
+            'mapping' => [
+                'paths' => $paths,
+            ],
+        ]);
     }
 }
 
