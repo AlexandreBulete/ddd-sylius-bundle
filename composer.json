@@ -1,45 +1,47 @@
 {
-  "name": "alexandrebulete/ddd-sylius-bundle",
-  "description": "Sylius Stack Bundle for DDD Foundation - Admin UI, Grid, Resource integration",
-  "type": "symfony-bundle",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Alexandre Bulete"
+    "name": "alexandrebulete/ddd-sylius-bundle",
+    "description": "Sylius Stack Bundle for DDD Foundation - Admin UI, Grid, Resource integration",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexandre Bulete"
+        }
+    ],
+    "require": {
+        "php": "^8.4",
+        "alexandrebulete/ddd-symfony-bundle": "^1.5",
+        "knplabs/knp-menu-bundle": "^3.4",
+        "sylius/resource-bundle": "^1.13",
+        "sylius/grid-bundle": "^1.13",
+        "sylius/admin-ui": "^0.14",
+        "sylius/bootstrap-admin-ui": "^0.14",
+        "symfony/http-kernel": "^7.0 || ^8.0",
+        "symfony/translation-contracts": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AlexandreBulete\\DddSyliusBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AlexandreBulete\\DddSyliusBundle\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require-dev": {
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "phpunit/phpunit": "^12.0 || ^13.0"
+    },
+    "scripts": {
+        "phpstan": "phpstan analyse --no-progress",
+        "test": "phpunit",
+        "qa": [
+            "@phpstan",
+            "@test"
+        ]
     }
-  ],
-  "require": {
-    "php": "^8.4",
-    "alexandrebulete/ddd-symfony-bundle": "^1.5",
-    "knplabs/knp-menu-bundle": "^3.4",
-    "sylius/resource-bundle": "^1.13",
-    "sylius/grid-bundle": "^1.13",
-    "sylius/admin-ui": "^0.14",
-    "sylius/bootstrap-admin-ui": "^0.14"
-  },
-  "autoload": {
-    "psr-4": {
-      "AlexandreBulete\\DddSyliusBundle\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "AlexandreBulete\\DddSyliusBundle\\Tests\\": "tests/"
-    }
-  },
-  "minimum-stability": "stable",
-  "prefer-stable": true,
-  "require-dev": {
-    "phpstan/phpstan": "^2.1",
-    "phpstan/phpstan-strict-rules": "^2.0",
-    "phpunit/phpunit": "^12.0 || ^13.0"
-  },
-  "scripts": {
-    "phpstan": "phpstan analyse --no-progress",
-    "test": "phpunit",
-    "qa": [
-      "@phpstan",
-      "@test"
-    ]
-  }
 }

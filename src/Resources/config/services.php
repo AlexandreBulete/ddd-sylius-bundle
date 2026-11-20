@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use AlexandreBulete\DddSyliusBundle\Admin\DomainRefusalListener;
 use AlexandreBulete\DddSyliusBundle\Admin\Menu\MenuBuilder;
 use AlexandreBulete\DddSyliusBundle\Grid\GridPageResolver;
 use AlexandreBulete\DddSyliusBundle\Grid\RequestGridProviderDecorator;
@@ -18,6 +19,7 @@ return static function (ContainerConfigurator $container): void {
         ->autoconfigure();
 
     $services->set(MenuBuilder::class);
+    $services->set(DomainRefusalListener::class);
     $services->set(GridPageResolver::class);
 
     $services->set(RequestGridProviderDecorator::class)

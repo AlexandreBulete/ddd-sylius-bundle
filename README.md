@@ -75,6 +75,32 @@ $page = GridPageResolver::getCurrentPage($grid, $parameters);
 $itemsPerPage = GridPageResolver::getItemsPerPage($grid, $parameters);
 ```
 
+### Domain refusals in the back office
+
+An admin action the domain refuses (removing a category still in use,
+deleting a published post) throws a `\DomainException` from the use case.
+On a write to a Sylius `admin` route, `DomainRefusalListener` turns it into an
+error flash and a redirect back to the page the click came from — instead of
+an error page. Reads, other sections and other exceptions are left alone.
+
+The flash is the translation of `domain_refusal.<snake_case class name>` in
+the `flashes` domain, with the exception's public properties as parameters:
+
+```php
+final class StillInUseException extends \DomainException
+{
+    public function __construct(public readonly string $name, public readonly int $posts) { … }
+}
+```
+
+```yaml
+# translations/flashes.fr.yaml
+domain_refusal:
+    still_in_use_exception: "« %name% » est encore utilisé par %posts% article(s)."
+```
+
+Without a translation, the exception message is shown.
+
 ### Sylius Resource Configuration
 
 Configure resource mapping for your bounded contexts:
