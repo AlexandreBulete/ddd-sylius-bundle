@@ -10,6 +10,9 @@ use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
 class DddSyliusBundle extends AbstractBundle
 {
+    /**
+     * @param array<mixed, mixed> $config
+     */
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
         $container->import('../src/Resources/config/services.php');
@@ -19,9 +22,9 @@ class DddSyliusBundle extends AbstractBundle
     {
         /** @var string $projectDir */
         $projectDir = $builder->getParameter('kernel.project_dir');
-        $paths = glob($projectDir . '/src/*/Infrastructure/Sylius/Resource', GLOB_ONLYDIR) ?: [];
+        $paths = glob($projectDir . '/src/*/Infrastructure/Sylius/Resource', GLOB_ONLYDIR);
 
-        if ([] === $paths) {
+        if (false === $paths || [] === $paths) {
             return;
         }
 

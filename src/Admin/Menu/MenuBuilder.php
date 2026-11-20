@@ -23,6 +23,9 @@ final readonly class MenuBuilder implements MenuBuilderInterface
     ) {
     }
 
+    /**
+     * @param array<mixed, mixed> $options
+     */
     public function createMenu(array $options): ItemInterface
     {
         $menu = $this->factory->createItem('root');
