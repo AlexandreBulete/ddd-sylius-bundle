@@ -15,8 +15,7 @@
     "sylius/resource-bundle": "^1.13",
     "sylius/grid-bundle": "^1.13",
     "sylius/admin-ui": "^0.14",
-    "sylius/bootstrap-admin-ui": "^0.14",
-    "pagerfanta/pagerfanta": "^4.0"
+    "sylius/bootstrap-admin-ui": "^0.14"
   },
   "autoload": {
     "psr-4": {
