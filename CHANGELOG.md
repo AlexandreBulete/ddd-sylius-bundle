@@ -1,3 +1,12 @@
+## [1.2.0] - 2026-11-20
+
+### 🚀 Features
+
+- Domain refusals become an admin flash, not an error page
+
+### 📚 Documentation
+
+- Update CHANGELOG.md for 1.1.0
 ## [1.1.0] - 2026-11-20
 
 ### 🐛 Bug Fixes
