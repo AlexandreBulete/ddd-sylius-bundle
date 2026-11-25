@@ -1,3 +1,12 @@
+## [1.4.0] - 2026-11-25
+
+### 🚀 Features
+
+- Readable edit breadcrumbs and dashboard title
+
+### 📚 Documentation
+
+- Update CHANGELOG.md for 1.3.0
 ## [1.3.0] - 2026-11-25
 
 ### 🚀 Features
