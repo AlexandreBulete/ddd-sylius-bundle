@@ -1,0 +1,43 @@
+{#
+ # The edit page's breadcrumbs. Sylius names the record by its id when it has
+ # no `name` or `code`: a ULID, or `default` for a one-row resource. Here the
+ # record is named by its first readable field (the hook's `rendered_field`,
+ # then title, label, name, email, subject, code), and left out when it has
+ # none: an id tells the reader nothing.
+ #}
+{% from '@SyliusBootstrapAdminUi/shared/helper/breadcrumbs.html.twig' import breadcrumbs %}
+
+{% set configuration = hookable_metadata.context.configuration|default(null) %}
+{% set resource = hookable_metadata.context.resource|default(null) %}
+{% set metadata = hookable_metadata.context.metadata|default(null) %}
+
+{% set items = [{ name: 'sylius.ui.dashboard', url: path('sylius_admin_ui_dashboard'), active: false }] %}
+
+{% if metadata is not null and configuration is not null %}
+    {% set index_route = configuration.vars.index.route.name|default(configuration.getRouteName('index')) %}
+    {% if sylius_route_exists(index_route) %}
+        {% set items = items|merge([{
+            name: metadata.applicationName ~ '.ui.' ~ metadata.pluralName,
+            url: path(index_route, configuration.vars.index.route.parameters|default(configuration.vars.route.parameters|default({}))),
+            active: false,
+        }]) %}
+    {% endif %}
+{% endif %}
+
+{% set label = null %}
+{% if resource is not null %}
+    {% for field in [hookable_metadata.configuration.rendered_field|default(null), 'title', 'label', 'name', 'email', 'subject', 'code']|filter(f => f is not null) %}
+        {% if label is null and attribute(resource, field) is defined and attribute(resource, field) is not empty and attribute(resource, field) is not iterable %}
+            {% set label = attribute(resource, field) %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% if label is not null %}
+    {% set show_route = configuration is not null ? configuration.getRouteName('show') : null %}
+    {% set items = items|merge([show_route is not null and sylius_route_exists(show_route)
+        ? { name: label|length > 60 ? label|slice(0, 59) ~ '…' : label, url: path(show_route, { id: resource.id }), active: false }
+        : { name: label|length > 60 ? label|slice(0, 59) ~ '…' : label, active: false }]) %}
+{% endif %}
+
+{{ breadcrumbs(items|merge([{ name: 'sylius.ui.edit'|trans, active: true }])) }}

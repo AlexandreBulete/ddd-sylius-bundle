@@ -1,0 +1,11 @@
+{#
+ # Overrides @SyliusAdminUi/dashboard/index.html.twig only to separate the
+ # tab title like every other page: "Tableau de bord | <app>".
+ #}
+{% extends '@SyliusAdminUi/base.html.twig' %}
+
+{% block title %}{{ 'sylius.ui.dashboard'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+{% hook ['sylius_admin.dashboard.index', 'sylius_admin.common.index'] %}
+{% endblock %}

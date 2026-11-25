@@ -128,6 +128,15 @@ and `'` shows as `&#039;`.
 It also translates the grid columns Sylius leaves untranslated in French
 (`sylius.ui.created_at`, `sylius.ui.updated_at`).
 
+Two more details Sylius leaves rough:
+
+- **Edit breadcrumbs** name the record by its first readable field — the
+  hook's `rendered_field`, then `title`, `label`, `name`, `email`, `subject`,
+  `code` — instead of its id (a ULID, or `default` for a one-row resource).
+  A record with none of them is left out of the trail.
+- **The dashboard's tab title** reads "Dashboard | <app>", separated like
+  every other page.
+
 ### Sylius Resource Configuration
 
 Configure resource mapping for your bounded contexts:

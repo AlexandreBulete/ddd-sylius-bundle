@@ -24,6 +24,22 @@ class DddSyliusBundle extends AbstractBundle
         // (see templates/admin/title). Sylius' own title is switched off
         // rather than overridden: the application imports Sylius' hooks
         // after this prepend, and would win on the same template key.
+        // Edit breadcrumbs that name the record instead of showing its id.
+        $container->extension('sylius_twig_hooks', [
+            'hooks' => [
+                'sylius_admin.common.update.content.header' => [
+                    'breadcrumbs' => ['enabled' => false],
+                    'ddd_breadcrumbs' => ['template' => '@DddSylius/admin/breadcrumbs/update.html.twig', 'priority' => 100],
+                ],
+            ],
+        ]);
+
+        // The dashboard's tab title, separated like the other pages. Paths
+        // configured here are searched before the bundle's own.
+        $container->extension('twig', [
+            'paths' => [$this->getPath().'/templates/sylius_admin_ui' => 'SyliusAdminUi'],
+        ]);
+
         foreach (['create', 'update'] as $page) {
             $container->extension('sylius_twig_hooks', [
                 'hooks' => [
