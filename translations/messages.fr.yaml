@@ -1,0 +1,5 @@
+# Grid columns Sylius names but does not translate in French.
+sylius:
+    ui:
+        created_at: Créé le
+        updated_at: Modifié le

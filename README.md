@@ -101,6 +101,33 @@ domain_refusal:
 
 Without a translation, the exception message is shown.
 
+### Back-office titles
+
+Sylius names a screen from translation keys built on the resource's
+application and names: `<app>.ui.<pluralName>` (tab title, breadcrumbs,
+index header) and `<app>.ui.<name>`. Its create and edit headers then read
+"New" / "Edit" + the singular, which cannot agree in gender ("Nouveau page").
+
+The bundle replaces those two headers: they read
+`<app>.ui.new_<name>` and `<app>.ui.edit_<name>` when translated, and fall
+back to Sylius' composition otherwise. For a `blog.post` resource:
+
+```yaml
+# translations/messages.fr.yaml
+blog:
+    ui:
+        posts: Articles
+        post: article
+        new_post: Nouvel article
+        edit_post: Modifier l’article
+```
+
+Prefer the typographic apostrophe (`’`): Sylius escapes the tab title twice,
+and `'` shows as `&#039;`.
+
+It also translates the grid columns Sylius leaves untranslated in French
+(`sylius.ui.created_at`, `sylius.ui.updated_at`).
+
 ### Sylius Resource Configuration
 
 Configure resource mapping for your bounded contexts:

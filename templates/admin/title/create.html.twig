@@ -1,0 +1,24 @@
+{#
+ # The create page title. "Nouveau" + "page" cannot agree in gender: the
+ # title is read from `<application>.ui.new_<resource>` when it is
+ # translated ("Nouvelle page"), else composed as Sylius does.
+ #}
+{% import '@SyliusBootstrapAdminUi/shared/helper/header.html.twig' as header %}
+
+{% set metadata = hookable_metadata.context.metadata|default(null) %}
+{% set singular_name = hookable_metadata.configuration.resource_name|default(metadata is not null ? metadata.applicationName ~ '.ui.' ~ metadata.name : null) %}
+{% set title = hookable_metadata.configuration.title|default(hookable_metadata.configuration.header|default(null)) %}
+
+{% if title is null and metadata is not null %}
+    {% set key = metadata.applicationName ~ '.ui.new_' ~ metadata.name %}
+    {% if key|trans != key %}{% set title = key %}{% endif %}
+{% endif %}
+
+{% set icon = hookable_metadata.configuration.icon|default(null) %}
+{% set subheader = hookable_metadata.configuration.subheader|default(null) %}
+
+<div class="col-12 col-md-6">
+    <div class="d-md-flex gap-2 align-items-center">
+        {{ header.h1(title is not null ? title|trans : 'sylius.ui.new'|trans ~ ' ' ~ singular_name|trans, icon, subheader|trans) }}
+    </div>
+</div>
