@@ -15,7 +15,8 @@
 [data-bs-theme="light"] body, :root:not([data-bs-theme]) body { --tblr-body-bg: #f1f3f7; background-color: #f1f3f7; }
 
 /* Cards and columns */
-.ddd-column { display: flex; flex-direction: column; gap: var(--ddd-gap); margin-bottom: var(--ddd-gap); }
+/* Clear of the header and its buttons, wrapped above on a narrow screen. */
+.ddd-column { display: flex; flex-direction: column; gap: var(--ddd-gap); margin: 1.25rem 0 var(--ddd-gap); }
 .ddd-section { border-color: var(--ddd-border); border-radius: var(--ddd-radius); margin: 0; }
 .ddd-section > .card-body { padding: 1.5rem; }
 .ddd-section__header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.5rem; }
