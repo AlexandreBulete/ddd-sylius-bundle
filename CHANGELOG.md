@@ -1,3 +1,13 @@
+## [1.5.0] - 2026-11-27
+
+### 🚀 Features
+
+- Back-office forms in cards, status pills, star ratings, prefixed fields and switches
+
+### 📚 Documentation
+
+- Update CHANGELOG.md for 1.4.0
+- Forms in cards, widgets and status pills
 ## [1.4.0] - 2026-11-25
 
 ### 🚀 Features
