@@ -1,3 +1,12 @@
+## [1.5.1] - 2026-11-27
+
+### 🐛 Bug Fixes
+
+- Room between the header buttons and the form cards
+
+### 📚 Documentation
+
+- Update CHANGELOG.md for 1.5.0
 ## [1.5.0] - 2026-11-27
 
 ### 🚀 Features
