@@ -137,6 +137,70 @@ Two more details Sylius leaves rough:
 - **The dashboard's tab title** reads "Dashboard | <app>", separated like
   every other page.
 
+### Forms in cards
+
+Every Sylius create/update page goes through the bundle's form layout: a form
+that declares **sections** is laid out in cards on two columns (a wide one, a
+side one); a form that declares none keeps Sylius' single card.
+
+```php
+public function buildForm(FormBuilderInterface $builder, array $options): void
+{
+    $builder
+        ->add('title', TextType::class, ['section' => 'book'])
+        ->add('firstName', TextType::class, ['section' => 'book', 'span' => 'half'])
+        ->add('lastName', TextType::class, ['section' => 'book', 'span' => 'half'])
+        ->add('status', EnumType::class, ['class' => Status::class, 'section' => 'publication'])
+        ->add('slug', TextType::class, ['section' => 'address', 'prefix' => '/books/']);
+}
+
+public function configureOptions(OptionsResolver $resolver): void
+{
+    $resolver->setDefaults([
+        'data_class' => BookResource::class,
+        'sections' => [   // card order, per column
+            'book' => ['label' => 'app.section.book'],
+            'publication' => ['label' => 'app.section.publication', 'column' => 'side'],
+            'address' => ['label' => 'app.section.address', 'column' => 'side', 'help' => '…'],
+        ],
+    ]);
+}
+```
+
+- `span`: `full` (default), `half`, `third`, `two_thirds` of the card's width.
+- Fields without a section go first, in an untitled card.
+- A section the form does not declare is created from the field's own options
+  (`section_label`, `section_column`, `section_help`, `section_collapsed`).
+  That is how a **form type extension brings its own card** to forms it does
+  not own: a compound field alone in its card gives it its label.
+- `section_collapsed: true` folds the card (open when it holds an error).
+
+### Widgets
+
+- `prefix` / `suffix` on any text field: `'prefix' => '/blog/'`, `'suffix' => 'px'`.
+- `switch: true` on a checkbox: a toggle.
+- `RatingType`: stars, `max` (5) and `half` (half stars, the value counts
+  halves). Not required by default, with a "clear" button.
+- `autocomplete: true` on a `ChoiceType` or `EntityType` (Symfony UX
+  Autocomplete, shipped with the Sylius admin): a searchable select, single or
+  multiple.
+
+### Status pills, stars, title and public link
+
+A resource implementing `AdminRecordInterface` gets, on its update page, its
+own name as the title (`adminLabel()`), a status pill next to it
+(`adminStatus()`, a `StatusBadge` with a tone: `success`, `info`, `warning`,
+`danger`, `neutral`) and a "View on the site" button (`adminPublicUrl()`).
+
+In a grid:
+
+```php
+TwigField::create('status', '@DddSylius/admin/grid/field/status.html.twig')->setPath('adminStatus')
+TwigField::create('rating', '@DddSylius/admin/grid/field/stars.html.twig')->setPath('rating') // 3.5
+```
+
+Anywhere in a template: `{{ admin_status(badge) }}`, `{{ admin_stars(3.5) }}`.
+
 ### Sylius Resource Configuration
 
 Configure resource mapping for your bounded contexts:
