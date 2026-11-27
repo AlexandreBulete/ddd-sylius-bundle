@@ -82,3 +82,8 @@ textarea.form-control[rows] { height: auto; min-height: 0; }
 .ddd-dialog::backdrop { background: rgba(15, 23, 42, .45); }
 .ddd-dialog__title { font-size: 1rem; font-weight: 600; margin: 0 0 1rem; }
 .ddd-dialog__actions { display: flex; justify-content: flex-end; gap: .5rem; margin-top: .5rem; }
+
+/* Menu headings and counts (MenuGrouper) */
+.ddd-menu-heading { padding: 1rem 1rem .25rem; font-size: .6875rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--tblr-navbar-color, rgba(255, 255, 255, .55)); opacity: .7; }
+.ddd-menu-heading:first-child { padding-top: .25rem; }
+.navbar .nav-link .ddd-menu-badge, .ddd-menu-badge { position: static !important; inset: auto !important; transform: none; min-width: 0; height: auto; margin-left: .5rem; padding: .125rem .4rem; font-size: .6875rem; line-height: 1.2; vertical-align: middle; }

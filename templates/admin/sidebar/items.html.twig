@@ -1,0 +1,29 @@
+{% extends '@SyliusBootstrapAdminUi/shared/crud/common/sidebar/menu/menu.html.twig' %}
+
+{#
+ # Group headings (MenuGrouper) between the entries, and a plain link marked
+ # active on its page, which Sylius' template leaves out.
+ #}
+{% block item %}
+    {% if item.extra('ddd_heading') %}
+        <li class="nav-item ddd-menu-heading" role="presentation"><span>{{ block('label') }}</span></li>
+    {% elseif not item.hasChildren and (matcher.isCurrent(item) or matcher.isAncestor(item, options.matchingDepth)) %}
+        {%- set target = item.linkAttributes and item.linkAttributes['target'] ? item.linkAttributes['target'] : '_self' %}
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ item.uri }}" target="{{ target }}" aria-current="page">
+                <span class="nav-link-icon d-md-none d-lg-inline-block">{{ block('icon') }}</span>
+                <span class="nav-link-title">{{ block('label') }}</span>
+            </a>
+        </li>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{# A count beside the label: what waits behind the entry. #}
+{% block label %}
+    {{- parent() -}}
+    {%- if item.extra('badge') is not empty and item.extra('badge') > 0 and not item.extra('ddd_heading') -%}
+        <span class="badge bg-orange-lt ddd-menu-badge">{{ item.extra('badge') }}</span>
+    {%- endif -%}
+{% endblock %}

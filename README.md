@@ -64,6 +64,28 @@ final readonly class PostMenuContributor implements MenuContributorInterface
 }
 ```
 
+#### Group the menu under headings
+
+The application decides the menu's sections without the contributors knowing:
+each group lists the names of top-level entries, in order. Entries no group
+lists go under a last heading (`other_label`, « Autres » / "Other"). Without
+`groups`, the menu stays as contributed.
+
+```yaml
+ddd_sylius:
+    menu:
+        groups:
+            content: { label: Content, items: [blog, pages, media] }
+            readers: { label: Readers, items: [comment, contact] }
+        # other_label: ddd_sylius.menu.other
+```
+
+Always, groups or not:
+
+- an entry holding a single link becomes that link (label and icon kept);
+- `->setExtra('badge', $count)` on an item shows a count beside its label; an
+  entry without its own badge shows the sum of its links' badges.
+
 ### Grid Page Resolver
 
 Utility for resolving pagination parameters from Grid and Request:

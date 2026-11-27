@@ -4,6 +4,8 @@ sylius:
         created_at: Créé le
         updated_at: Modifié le
 ddd_sylius:
+    menu:
+        other: "Autres"
     creatable:
         title: "Nouvelle entrée"
         submit: "Ajouter"

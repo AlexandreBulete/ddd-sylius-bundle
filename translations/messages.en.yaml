@@ -3,6 +3,8 @@ sylius:
         created_at: Created at
         updated_at: Updated at
 ddd_sylius:
+    menu:
+        other: "Other"
     creatable:
         title: "New entry"
         submit: "Add"

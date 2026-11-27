@@ -20,6 +20,7 @@ final readonly class MenuBuilder implements MenuBuilderInterface
         private FactoryInterface $factory,
         #[AutowireIterator('app.menu_contributor')]
         private iterable $contributors,
+        private MenuGrouper $grouper = new MenuGrouper(),
     ) {
     }
 
@@ -41,6 +42,7 @@ final readonly class MenuBuilder implements MenuBuilderInterface
         foreach ($this->contributors as $contributor) {
             $contributor->contribute($menu);
         }
+        $this->grouper->shape($menu);
 
         return $menu;
     }

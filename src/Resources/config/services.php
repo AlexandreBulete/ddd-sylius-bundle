@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use AlexandreBulete\DddSyliusBundle\Admin\DomainRefusalListener;
 use AlexandreBulete\DddSyliusBundle\Admin\Menu\MenuBuilder;
+use AlexandreBulete\DddSyliusBundle\Admin\Menu\MenuGrouper;
 use AlexandreBulete\DddSyliusBundle\Admin\Twig\AdminViewExtension;
 use AlexandreBulete\DddSyliusBundle\Form\Extension\AffixExtension;
 use AlexandreBulete\DddSyliusBundle\Form\Extension\SectionExtension;
@@ -15,6 +16,7 @@ use AlexandreBulete\DddSyliusBundle\Grid\RequestGridProviderDecorator;
 use Sylius\Resource\Grid\State\RequestGridProvider;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
+use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ContainerConfigurator $container): void {
@@ -25,6 +27,8 @@ return static function (ContainerConfigurator $container): void {
         ->autoconfigure();
 
     $services->set(MenuBuilder::class);
+    $services->set(MenuGrouper::class)
+        ->args([param('ddd_sylius.menu.groups'), param('ddd_sylius.menu.other_label')]);
     $services->set(AdminViewExtension::class);
     $services->set(SectionExtension::class);
     $services->set(AffixExtension::class);
