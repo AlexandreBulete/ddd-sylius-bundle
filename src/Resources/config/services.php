@@ -5,6 +5,7 @@ declare(strict_types=1);
 use AlexandreBulete\DddSyliusBundle\Admin\DomainRefusalListener;
 use AlexandreBulete\DddSyliusBundle\Admin\Menu\MenuBuilder;
 use AlexandreBulete\DddSyliusBundle\Admin\Menu\MenuGrouper;
+use AlexandreBulete\DddSyliusBundle\Admin\Menu\ResourcePageVoter;
 use AlexandreBulete\DddSyliusBundle\Admin\Twig\AdminViewExtension;
 use AlexandreBulete\DddSyliusBundle\Form\Extension\AffixExtension;
 use AlexandreBulete\DddSyliusBundle\Form\Extension\SectionExtension;
@@ -29,6 +30,8 @@ return static function (ContainerConfigurator $container): void {
     $services->set(MenuBuilder::class);
     $services->set(MenuGrouper::class)
         ->args([param('ddd_sylius.menu.groups'), param('ddd_sylius.menu.other_label')]);
+    $services->set(ResourcePageVoter::class)
+        ->tag('knp_menu.voter');
     $services->set(AdminViewExtension::class);
     $services->set(SectionExtension::class);
     $services->set(AffixExtension::class);
