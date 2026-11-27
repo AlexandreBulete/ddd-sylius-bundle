@@ -76,3 +76,9 @@ details.ddd-section:not([open]) > summary { border-bottom: 0; }
 
 /* Sylius sets every textarea to 12rem: a field that gives its rows keeps them. */
 textarea.form-control[rows] { height: auto; min-height: 0; }
+
+/* The creation dialog of a creatable select */
+.ddd-dialog { border: 0; border-radius: var(--ddd-radius); padding: 1.5rem; width: min(26rem, calc(100vw - 2rem)); box-shadow: 0 1rem 3rem rgba(0, 0, 0, .2); background: var(--tblr-bg-surface, #fff); color: inherit; }
+.ddd-dialog::backdrop { background: rgba(15, 23, 42, .45); }
+.ddd-dialog__title { font-size: 1rem; font-weight: 600; margin: 0 0 1rem; }
+.ddd-dialog__actions { display: flex; justify-content: flex-end; gap: .5rem; margin-top: .5rem; }

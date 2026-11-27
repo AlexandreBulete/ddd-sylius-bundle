@@ -41,3 +41,38 @@
     {% set compound = false %}
     {{- block('form_label') -}}
 {%- endblock ddd_rating_label -%}
+
+{#
+ # A searchable select that may add to its list (CreatableChoiceType). The
+ # search is Symfony UX Autocomplete, switched on by admin.js once it has
+ # hooked the creation dialog in.
+ #}
+{%- block ddd_creatable_choice_widget -%}
+    {% set fields = null %}
+    {% if create_fields is not null %}
+        {% set fields = [] %}
+        {% for name, label in create_fields %}
+            {% set fields = fields|merge([{name: name, label: label|trans({}, translation_domain)}]) %}
+        {% endfor %}
+    {% endif %}
+    {% set config = {
+        fields: fields,
+        title: create_title is not null ? create_title|trans({}, translation_domain) : 'ddd_sylius.creatable.title'|trans({}, 'messages'),
+        submit: 'ddd_sylius.creatable.submit'|trans({}, 'messages'),
+        cancel: 'ddd_sylius.creatable.cancel'|trans({}, 'messages'),
+    } %}
+    <select id="{{ id }}" name="{{ full_name }}" class="form-select{% if attr.class is defined %} {{ attr.class }}{% endif %}"
+            data-ddd-creatable="{{ config|json_encode }}"
+            data-symfony--ux-autocomplete--autocomplete-create-option-text-value="{{ 'ddd_sylius.creatable.add'|trans({}, 'messages') }}"
+            data-symfony--ux-autocomplete--autocomplete-no-results-found-text-value="{{ 'ddd_sylius.creatable.none'|trans({}, 'messages') }}"
+            {%- if required %} required{% endif %}{% if disabled %} disabled{% endif %}
+            {%- if help is not empty %} aria-describedby="{{ id }}_help"{% endif %}>
+        <option value="">{{ placeholder is not empty ? placeholder|trans({}, translation_domain) : '' }}</option>
+        {%- for label, choice in choices %}
+            <option value="{{ choice }}"{% if choice ~ '' == value %} selected{% endif %}>{{ label }}</option>
+        {%- endfor %}
+        {%- if new_label is not null %}
+            <option value="{{ value }}" selected>{{ new_label }}</option>
+        {%- endif %}
+    </select>
+{%- endblock ddd_creatable_choice_widget -%}

@@ -3,6 +3,12 @@ sylius:
         created_at: Created at
         updated_at: Updated at
 ddd_sylius:
+    creatable:
+        title: "New entry"
+        submit: "Add"
+        cancel: "Cancel"
+        add: "Add %placeholder%…"
+        none: "No result: type to add it"
     ui:
         view_on_site: View on the site
     rating:

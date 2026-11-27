@@ -4,6 +4,12 @@ sylius:
         created_at: Créé le
         updated_at: Modifié le
 ddd_sylius:
+    creatable:
+        title: "Nouvelle entrée"
+        submit: "Ajouter"
+        cancel: "Annuler"
+        add: "Ajouter %placeholder%…"
+        none: "Aucun résultat : tapez pour l'ajouter"
     ui:
         view_on_site: Voir sur le site
     rating:

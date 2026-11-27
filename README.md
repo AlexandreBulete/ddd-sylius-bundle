@@ -184,6 +184,20 @@ public function configureOptions(OptionsResolver $resolver): void
 - `autocomplete: true` on a `ChoiceType` or `EntityType` (Symfony UX
   Autocomplete, shipped with the Sylius admin): a searchable select, single or
   multiple.
+- `CreatableChoiceType`: a searchable select whose list grows from the field.
+  `choices` (label => value) as `ChoiceType`; a text the list lacks comes back
+  as a `NewChoice` for the use case to create. With `create_fields`
+  (`field => label`) and an optional `create_title`, a new entry opens a dialog
+  with those fields instead — e.g. a first and a last name:
+
+  ```php
+  $builder->add('author', CreatableChoiceType::class, [
+      'choices' => $authors, // 'Vigan Delphine de' => '01J…'
+      'create_fields' => ['firstName' => 'author.first_name', 'lastName' => 'author.last_name'],
+      'create_title' => 'author.new',
+  ]);
+  // On submit: '01J…', a NewChoice (->get('lastName'), ->label()), or null.
+  ```
 
 ### Status pills, stars, title and public link
 

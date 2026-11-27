@@ -8,6 +8,7 @@ use AlexandreBulete\DddSyliusBundle\Admin\Twig\AdminViewExtension;
 use AlexandreBulete\DddSyliusBundle\Form\Extension\AffixExtension;
 use AlexandreBulete\DddSyliusBundle\Form\Extension\SectionExtension;
 use AlexandreBulete\DddSyliusBundle\Form\Extension\SwitchExtension;
+use AlexandreBulete\DddSyliusBundle\Form\Type\CreatableChoiceType;
 use AlexandreBulete\DddSyliusBundle\Form\Type\RatingType;
 use AlexandreBulete\DddSyliusBundle\Grid\GridPageResolver;
 use AlexandreBulete\DddSyliusBundle\Grid\RequestGridProviderDecorator;
@@ -29,6 +30,7 @@ return static function (ContainerConfigurator $container): void {
     $services->set(AffixExtension::class);
     $services->set(SwitchExtension::class);
     $services->set(RatingType::class);
+    $services->set(CreatableChoiceType::class);
     $services->set(DomainRefusalListener::class);
     $services->set(GridPageResolver::class);
 
