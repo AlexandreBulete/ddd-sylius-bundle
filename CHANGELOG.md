@@ -1,3 +1,12 @@
+## [1.5.2] - 2026-11-27
+
+### 🐛 Bug Fixes
+
+- A textarea keeps the rows it asks for
+
+### 📚 Documentation
+
+- Update CHANGELOG.md for 1.5.1
 ## [1.5.1] - 2026-11-27
 
 ### 🐛 Bug Fixes
