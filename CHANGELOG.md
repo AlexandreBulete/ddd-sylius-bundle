@@ -1,3 +1,13 @@
+## [1.6.0] - 2026-11-27
+
+### 🚀 Features
+
+- A searchable select that adds to its list from the field
+- Menu headings declared by the application, single links flattened, count badges
+
+### 📚 Documentation
+
+- Update CHANGELOG.md for 1.5.2
 ## [1.5.2] - 2026-11-27
 
 ### 🐛 Bug Fixes
