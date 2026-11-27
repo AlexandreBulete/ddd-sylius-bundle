@@ -1,3 +1,16 @@
+## [1.7.0] - 2026-11-27
+
+### 🚀 Features
+
+- A resource menu entry stays current on its form pages
+
+### 🐛 Bug Fixes
+
+- Flash messages that need no resource name
+
+### 📚 Documentation
+
+- Update CHANGELOG.md for 1.6.0
 ## [1.6.0] - 2026-11-27
 
 ### 🚀 Features
