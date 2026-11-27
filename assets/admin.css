@@ -73,3 +73,6 @@ details.ddd-section:not([open]) > summary { border-bottom: 0; }
 /* Read-only stars: a grey row with a gold one over it, cut at the value */
 .ddd-stars { position: relative; display: inline-block; color: var(--ddd-star-off); letter-spacing: .0625rem; white-space: nowrap; line-height: 1; }
 .ddd-stars::before { content: '★★★★★★★★★★'; position: absolute; inset: 0; width: var(--ddd-stars); overflow: hidden; color: var(--ddd-star); }
+
+/* Sylius sets every textarea to 12rem: a field that gives its rows keeps them. */
+textarea.form-control[rows] { height: auto; min-height: 0; }
