@@ -1,0 +1,12 @@
+# Sylius names the resource by its technical name ("Book has been
+# successfully updated"): a message that does not need it.
+sylius:
+    resource:
+        create: "Created."
+        update: "Changes saved."
+        delete: "Deleted."
+        bulk_delete: "Deleted."
+        enable: "Enabled."
+        disable: "Disabled."
+        delete_error: "Cannot delete: the item is still in use."
+        race_condition_error: "Cannot save: the item changed in the meantime. Reload the page."

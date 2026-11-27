@@ -1,0 +1,13 @@
+# Sylius names the resource by its technical name ("Book a bien été mis à
+# jour"), and French makes its participle agree with it: a message that needs
+# neither.
+sylius:
+    resource:
+        create: "Création enregistrée."
+        update: "Modifications enregistrées."
+        delete: "Suppression effectuée."
+        bulk_delete: "Suppressions effectuées."
+        enable: "Activation enregistrée."
+        disable: "Désactivation enregistrée."
+        delete_error: "Suppression impossible : l'élément est encore utilisé."
+        race_condition_error: "Enregistrement impossible : l'élément a été modifié entre-temps. Rechargez la page."
