@@ -1,0 +1,74 @@
+/*
+ * The back office's look over Sylius' admin (Tabler): cards in two columns,
+ * airier fields, status pills, star ratings. Variables first, to retune.
+ */
+:root {
+    --ddd-gap: 1.5rem;
+    --ddd-radius: .5rem;
+    --ddd-border: #dde3eb;
+    --ddd-muted: #5b6678;
+    --ddd-star: #d48a1e;
+    --ddd-star-off: #c9d1dd;
+}
+
+/* A grey page under white cards, in the light theme */
+[data-bs-theme="light"] body, :root:not([data-bs-theme]) body { --tblr-body-bg: #f1f3f7; background-color: #f1f3f7; }
+
+/* Cards and columns */
+.ddd-column { display: flex; flex-direction: column; gap: var(--ddd-gap); margin-bottom: var(--ddd-gap); }
+.ddd-section { border-color: var(--ddd-border); border-radius: var(--ddd-radius); margin: 0; }
+.ddd-section > .card-body { padding: 1.5rem; }
+.ddd-section__header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.5rem; }
+.ddd-section__header .card-title { font-size: 1rem; font-weight: 600; margin: 0; }
+.ddd-section__help { display: block; color: var(--ddd-muted); font-size: .8125rem; margin-top: .125rem; font-weight: 400; }
+details.ddd-section > summary { cursor: pointer; list-style: none; }
+details.ddd-section > summary::-webkit-details-marker { display: none; }
+details.ddd-section > summary::after { content: ''; width: .5rem; height: .5rem; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform .15s; flex: none; margin-right: .25rem; }
+details.ddd-section[open] > summary::after { transform: rotate(-135deg); }
+details.ddd-section:not([open]) > summary { border-bottom: 0; }
+
+/* Fields in a card: a six-track grid, a field spans 6, 3, 2 or 4 */
+.ddd-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); column-gap: 1rem; row-gap: .25rem; }
+.ddd-cell { grid-column: span 6; min-width: 0; }
+@media (min-width: 768px) {
+    .ddd-cell--half { grid-column: span 3; }
+    .ddd-cell--third { grid-column: span 2; }
+    .ddd-cell--two_thirds { grid-column: span 4; }
+}
+.ddd-grid .form-label { font-weight: 500; }
+.ddd-grid .form-text { color: var(--ddd-muted); }
+.ddd-grid .field:last-child { margin-bottom: 0; }
+
+/* Title row */
+.ddd-title h1, .ddd-title .page-title { margin: 0; }
+
+/* Status pill */
+.ddd-status { display: inline-flex; align-items: center; gap: .375rem; padding: .1875rem .625rem; border-radius: 999px; font-size: .75rem; font-weight: 600; line-height: 1.4; white-space: nowrap; }
+.ddd-status::before { content: ''; width: .4375rem; height: .4375rem; border-radius: 999px; background: currentColor; opacity: .85; }
+.ddd-status--success { background: #dff3e6; color: #1a6b3a; }
+.ddd-status--warning { background: #fdf0d5; color: #8a5300; }
+.ddd-status--info { background: #e0ecfb; color: #1d4f91; }
+.ddd-status--danger { background: #fde4e1; color: #a3261a; }
+.ddd-status--neutral { background: #eceff3; color: #3b4658; }
+
+/* Star rating: radios highest first, laid right to left so that a star and
+   those before it light up together */
+.ddd-rating { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; }
+.ddd-rating__stars { display: inline-flex; flex-direction: row-reverse; justify-content: flex-end; font-size: 1.625rem; line-height: 1; }
+.ddd-rating__star { cursor: pointer; color: var(--ddd-star-off); padding: 0 .0625rem; margin: 0; transition: color .1s; }
+.ddd-rating--half .ddd-rating__star { width: .5em; overflow: hidden; padding: 0; }
+.ddd-rating--half .ddd-rating__star span[aria-hidden] { display: inline-block; width: 1em; text-align: center; }
+.ddd-rating--half .ddd-rating__star--right span[aria-hidden] { margin-left: -.5em; }
+.ddd-rating--half .ddd-rating__star--right { margin-right: .125em; }
+.ddd-rating__input:checked ~ .ddd-rating__star { color: var(--ddd-star); }
+.ddd-rating__stars:hover .ddd-rating__star { color: var(--ddd-star-off); }
+.ddd-rating__stars .ddd-rating__star:hover,
+.ddd-rating__stars .ddd-rating__star:hover ~ .ddd-rating__star { color: var(--ddd-star); }
+.ddd-rating__input:focus-visible + .ddd-rating__star { outline: 2px solid #1d5fb4; outline-offset: 2px; border-radius: 2px; }
+.ddd-rating__value { color: var(--ddd-muted); font-size: .875rem; min-width: 3.5rem; }
+.ddd-rating__clear { color: var(--ddd-muted); font-size: .8125rem; text-decoration: underline; cursor: pointer; margin: 0; }
+.ddd-rating__clear-input:focus-visible + .ddd-rating__clear { outline: 2px solid #1d5fb4; outline-offset: 2px; }
+
+/* Read-only stars: a grey row with a gold one over it, cut at the value */
+.ddd-stars { position: relative; display: inline-block; color: var(--ddd-star-off); letter-spacing: .0625rem; white-space: nowrap; line-height: 1; }
+.ddd-stars::before { content: '★★★★★★★★★★'; position: absolute; inset: 0; width: var(--ddd-stars); overflow: hidden; color: var(--ddd-star); }

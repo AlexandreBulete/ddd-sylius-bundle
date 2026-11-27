@@ -2,3 +2,9 @@ sylius:
     ui:
         created_at: Created at
         updated_at: Updated at
+ddd_sylius:
+    ui:
+        view_on_site: View on the site
+    rating:
+        none: No rating
+        clear: Clear rating

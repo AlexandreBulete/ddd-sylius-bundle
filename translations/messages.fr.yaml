@@ -3,3 +3,9 @@ sylius:
     ui:
         created_at: Créé le
         updated_at: Modifié le
+ddd_sylius:
+    ui:
+        view_on_site: Voir sur le site
+    rating:
+        none: Pas de note
+        clear: Effacer la note

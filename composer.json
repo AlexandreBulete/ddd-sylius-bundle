@@ -17,7 +17,9 @@
         "sylius/admin-ui": "^0.14",
         "sylius/bootstrap-admin-ui": "^0.14",
         "symfony/http-kernel": "^7.0 || ^8.0",
-        "symfony/translation-contracts": "^3.0"
+        "symfony/translation-contracts": "^3.0",
+        "symfony/form": "^7.0 || ^8.0",
+        "twig/twig": "^3.0"
     },
     "autoload": {
         "psr-4": {

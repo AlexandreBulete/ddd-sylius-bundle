@@ -1,0 +1,7 @@
+{# "View on the site", beside the update button, for a resource that has a public address. #}
+{% set resource = hookable_metadata.context.resource|default(null) %}
+{% if resource is not null and resource.adminPublicUrl is defined and resource.adminPublicUrl is not empty %}
+    <a href="{{ resource.adminPublicUrl }}" class="btn" target="_blank" rel="noopener">
+        {{ 'ddd_sylius.ui.view_on_site'|trans({}, 'messages') }}
+    </a>
+{% endif %}

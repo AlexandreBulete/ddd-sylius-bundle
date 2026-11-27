@@ -1,0 +1,43 @@
+{#
+ # The bundle's form blocks for the back office, over Sylius' theme.
+ #}
+{% extends '@SyliusBootstrapAdminUi/shared/form_theme.html.twig' %}
+
+{# Text before or after a field, in the same box (AffixExtension). #}
+{%- block form_widget_simple -%}
+    {%- if prefix|default(null) is not null or suffix|default(null) is not null -%}
+        <div class="input-group{% if not valid %} is-invalid{% endif %}">
+            {%- if prefix|default(null) is not null -%}<span class="input-group-text">{{ prefix|trans({}, translation_domain) }}</span>{%- endif -%}
+            {{- parent() -}}
+            {%- if suffix|default(null) is not null -%}<span class="input-group-text">{{ suffix|trans({}, translation_domain) }}</span>{%- endif -%}
+        </div>
+    {%- else -%}
+        {{- parent() -}}
+    {%- endif -%}
+{%- endblock form_widget_simple -%}
+
+{# Stars, as a radio group (RatingType): highest first, drawn right to left. #}
+{%- block ddd_rating_widget -%}
+    {% set step_label = half ? 0.5 : 1 %}
+    <div class="ddd-rating{% if half %} ddd-rating--half{% endif %}" data-ddd-rating data-max="{{ max }}" data-half="{{ half ? 1 : 0 }}">
+        <div class="ddd-rating__stars" role="radiogroup" aria-labelledby="{{ id }}_label">
+            {%- for child in form -%}
+                {% set stars = child.vars.value * step_label %}
+                <input type="radio" class="ddd-rating__input visually-hidden" id="{{ child.vars.id }}" name="{{ child.vars.full_name }}" value="{{ child.vars.value }}"{% if child.vars.checked %} checked{% endif %}{% if disabled %} disabled{% endif %}>
+                <label for="{{ child.vars.id }}" class="ddd-rating__star{% if half %} ddd-rating__star--{{ child.vars.value is odd ? 'left' : 'right' }}{% endif %}" title="{{ stars|number_format(stars == stars|round ? 0 : 1, ',') }} / {{ max }}"><span class="visually-hidden">{{ stars|number_format(stars == stars|round ? 0 : 1, ',') }} / {{ max }}</span><span aria-hidden="true">★</span></label>
+            {%- endfor -%}
+        </div>
+        {% set current = form.vars.value is not empty ? form.vars.value * step_label : null %}
+        <output class="ddd-rating__value" data-empty="{{ 'ddd_sylius.rating.none'|trans({}, 'messages') }}">{{ current is null ? 'ddd_sylius.rating.none'|trans({}, 'messages') : current|number_format(current == current|round ? 0 : 1, ',') ~ ' / ' ~ max }}</output>
+        {% if not required %}
+            <input type="radio" class="visually-hidden ddd-rating__clear-input" id="{{ id }}_clear" name="{{ full_name }}" value=""{% if form.vars.value is empty %} checked{% endif %}>
+            <label for="{{ id }}_clear" class="ddd-rating__clear">{{ 'ddd_sylius.rating.clear'|trans({}, 'messages') }}</label>
+        {% endif %}
+    </div>
+{%- endblock ddd_rating_widget -%}
+
+{%- block ddd_rating_label -%}
+    {% set label_attr = label_attr|merge({id: id ~ '_label'}) %}
+    {% set compound = false %}
+    {{- block('form_label') -}}
+{%- endblock ddd_rating_label -%}

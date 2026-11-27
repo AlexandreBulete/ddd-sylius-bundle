@@ -1,0 +1,75 @@
+{#
+ # The form's body. Laid out in cards over two columns when the form uses
+ # sections (SectionExtension), else Sylius' single card. The bundle's form
+ # theme extends Sylius' own, adding its blocks (stars, prefixes).
+ #}
+{% set form = hookable_metadata.context.form %}
+{% form_theme form '@DddSylius/form/admin.html.twig' %}
+{% set layout = form.vars.admin_layout|default(null) %}
+
+{% macro card(form, section) %}
+    {% set title = section.label is not same as(false) and section.label is not null
+        ? section.label|trans({}, section.translation_domain ?? form.vars.translation_domain)
+        : null %}
+    {% set body %}
+        <div class="ddd-grid">
+            {% for name in section.fields %}
+                {% set child = form[name] %}
+                <div class="ddd-cell ddd-cell--{{ child.vars.span|default('full') }}">
+                    {% if section.own == name %}
+                        {{ form_errors(child) }}
+                        {{ form_widget(child) }}
+                    {% else %}
+                        {{ form_row(child) }}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endset %}
+    {% set has_errors = section.fields|filter(n => form[n].vars.valid is same as(false))|length > 0 %}
+    {% if section.collapsed and title is not null %}
+        <details class="card ddd-section" id="section-{{ section.name }}"{% if has_errors %} open{% endif %}>
+            <summary class="card-header ddd-section__header">
+                <span>
+                    <span class="card-title">{{ title }}</span>
+                    {% if section.help %}<span class="ddd-section__help">{{ section.help|trans({}, form.vars.translation_domain) }}</span>{% endif %}
+                </span>
+            </summary>
+            <div class="card-body">{{ body }}</div>
+        </details>
+    {% else %}
+        <section class="card ddd-section" id="section-{{ section.name|default('main') }}">
+            {% if title is not null %}
+                <div class="card-header ddd-section__header">
+                    <span>
+                        <h2 class="card-title">{{ title }}</h2>
+                        {% if section.help %}<span class="ddd-section__help">{{ section.help|trans({}, form.vars.translation_domain) }}</span>{% endif %}
+                    </span>
+                </div>
+            {% endif %}
+            <div class="card-body">{{ body }}</div>
+        </section>
+    {% endif %}
+{% endmacro %}
+
+{% if layout is null %}
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    {{ form_widget(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    {% set has_side = layout.side is not empty %}
+    <div class="{{ has_side ? 'col-lg-8' : 'col-12 col-xl-10' }} ddd-column">
+        {% for section in layout.main %}{{ _self.card(form, section) }}{% endfor %}
+    </div>
+    {% if has_side %}
+        <div class="col-lg-4 ddd-column">
+            {% for section in layout.side %}{{ _self.card(form, section) }}{% endfor %}
+        </div>
+    {% endif %}
+{% endif %}

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlexandreBulete\DddSyliusBundle;
 
+use Symfony\Component\AssetMapper\AssetMapper;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
@@ -48,6 +49,38 @@ class DddSyliusBundle extends AbstractBundle
                         'ddd_title' => ['template' => '@DddSylius/admin/title/'.$page.'.html.twig', 'priority' => 100],
                     ],
                 ],
+            ]);
+        }
+
+        // The back office's look: cards over two columns (SectionExtension),
+        // the record's name and status in the title, "view on the site",
+        // the bundle's stylesheet and script.
+        foreach (['create', 'update'] as $page) {
+            $container->extension('sylius_twig_hooks', [
+                'hooks' => [
+                    'sylius_admin.common.'.$page.'.content.form.sections' => [
+                        'general' => ['enabled' => false],
+                        'ddd_sections' => ['template' => '@DddSylius/admin/form/sections.html.twig', 'priority' => 100],
+                    ],
+                ],
+            ]);
+        }
+        $container->extension('sylius_twig_hooks', [
+            'hooks' => [
+                'sylius_admin.common.update.content.header.title_block.actions' => [
+                    'ddd_public_link' => ['template' => '@DddSylius/admin/header/public_link.html.twig', 'priority' => 200],
+                ],
+                'sylius_admin.base#stylesheets' => [
+                    'ddd_styles' => ['template' => '@DddSylius/admin/layout/stylesheets.html.twig', 'priority' => -100],
+                ],
+                'sylius_admin.base#javascripts' => [
+                    'ddd_scripts' => ['template' => '@DddSylius/admin/layout/javascripts.html.twig', 'priority' => -100],
+                ],
+            ],
+        ]);
+        if (class_exists(AssetMapper::class)) {
+            $container->extension('framework', [
+                'asset_mapper' => ['paths' => [$this->getPath().'/assets' => '@alexandrebulete/ddd-sylius-bundle']],
             ]);
         }
 
